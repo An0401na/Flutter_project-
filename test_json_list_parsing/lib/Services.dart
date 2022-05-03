@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:test_json_list_parsing/Users.dart';
 
 class Services {
-  static const String url = 'https://203.249.22.52:8000';
+  static const String url = 'http://203.249.22.52:8000/';
 
   static Future<List<User>> getUsers() async {
     try {

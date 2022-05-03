@@ -10,8 +10,8 @@ class JsonParseDemo extends StatefulWidget {
 }
 
 class _JsonParseDemoState extends State<JsonParseDemo> {
-  List<User>? _users;
-  bool _loading = true;
+  late List<User> _users;
+  late bool _loading;
 
   void initState() {
     super.initState();
@@ -33,9 +33,9 @@ class _JsonParseDemoState extends State<JsonParseDemo> {
         body: Container(
           color: Colors.white,
           child: ListView.builder(
-              itemCount: null != _users ? 0 : _users!.length,
+              itemCount: null == _users ? 0 : _users.length,
               itemBuilder: (context, index) {
-                User user = _users![index];
+                User user = _users[index];
                 return ListTile(
                   title: Text(user.id.toString()),
                   subtitle: Text(user.name),
