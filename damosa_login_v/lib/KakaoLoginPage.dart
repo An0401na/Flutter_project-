@@ -10,9 +10,49 @@ class KakaoLoginPage extends StatefulWidget {
 }
 
 class _KakaoLoginPageState extends State<KakaoLoginPage> {
+  bool _isKakaoTalkInstalled = false;
+
+  void initState() {
+    _initKakaoTalkInstalled();
+    super.initState();
+  }
+
+  //카카오톡 설치 유무 확인
+  Future<void> _initKakaoTalkInstalled() async {
+    final installed = await isKakaoTalkInstalled();
+    print('카카오 설치 : ' + installed.toString());
+
+    setState(() {
+      _isKakaoTalkInstalled = installed;
+    });
+  }
+
+  //로그인 하기 누르면 auth 코드 받아옴
   Future<void> _loginButtonPressed() async {
     try {
+      _isKakaoTalkInstalled ? _loginWithKakaoApp() : _loginWithWeb();
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  //카카오 앱을 통한 로그인
+  Future<void> _loginWithKakaoApp() async {
+    try {
       print('AAuth Code');
+      String authCode = await AuthCodeClient.instance.requestWithTalk();
+      print('코드 : ');
+      print(authCode);
+      await _issueAccessToken(authCode);
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  //카카오 웹을 통한 로그인
+  Future<void> _loginWithWeb() async {
+    try {
+      print('웹을 통한 로그인');
       String authCode = await AuthCodeClient.instance.request();
       print('코드 : ');
       print(authCode);
@@ -22,18 +62,35 @@ class _KakaoLoginPageState extends State<KakaoLoginPage> {
     }
   }
 
+  //autocode로 토큰 받아와서 서버로 전송
   Future<void> _issueAccessToken(String authCode) async {
     try {
       var token = await AuthApi.instance.issueAccessToken(authCode);
-      print('token : ' + token.toString());
-      final kakaoUrl = Uri.parse('http://203.249.22.52:8080/');
+      final kakaoUrl = Uri.parse('http://203.249.22.50:8080/login');
       http
-          .post(kakaoUrl, body: json.encode({'access_token': token}))
+          .post(kakaoUrl,
+              headers: <String, String>{
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: json.encode(token))
           .then((res) => print(json.decode(res.body)))
           .catchError((e) => print(e.toString()));
-      print('성공');
+      print('token : ' + token.toString());
+      _get_user_info();
     } catch (error) {
-      print(error.toString());
+      print('에러' + error.toString());
+    }
+  }
+
+  Future<void> _get_user_info() async {
+    try {
+      User user = await UserApi.instance.me();
+      print(user.toString());
+      print('사용자 정보 요청 성공' +
+          '\n회원정보 : ${user.id}' +
+          '\n닉네임 : ${user.kakaoAccount?.profile?.nickname}');
+    } catch (error) {
+      print('사용자 정보요청 실패' + error.toString());
     }
   }
 
