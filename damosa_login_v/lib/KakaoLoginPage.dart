@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,10 +11,30 @@ class KakaoLoginPage extends StatefulWidget {
 
 class _KakaoLoginPageState extends State<KakaoLoginPage> {
   Future<void> _loginButtonPressed() async {
-    print('AAuth Code');
-    String authCode = await AuthCodeClient.instance.request();
-    print('코드 : ');
-    print(authCode);
+    try {
+      print('AAuth Code');
+      String authCode = await AuthCodeClient.instance.request();
+      print('코드 : ');
+      print(authCode);
+      await _issueAccessToken(authCode);
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  Future<void> _issueAccessToken(String authCode) async {
+    try {
+      var token = await AuthApi.instance.issueAccessToken(authCode);
+      print('token : ' + token.toString());
+      final kakaoUrl = Uri.parse('http://203.249.22.52:8080/');
+      http
+          .post(kakaoUrl, body: json.encode({'access_token': token}))
+          .then((res) => print(json.decode(res.body)))
+          .catchError((e) => print(e.toString()));
+      print('성공');
+    } catch (error) {
+      print(error.toString());
+    }
   }
 
   @override
