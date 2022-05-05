@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/example/damosa_login/BuildConfig.java
- com.example.damosa_login.BuildConfig
