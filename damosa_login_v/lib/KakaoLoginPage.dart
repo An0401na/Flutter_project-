@@ -66,19 +66,39 @@ class _KakaoLoginPageState extends State<KakaoLoginPage> {
   Future<void> _issueAccessToken(String authCode) async {
     try {
       var token = await AuthApi.instance.issueAccessToken(authCode);
+      var tokenManager = DefaultTokenManager();
+      tokenManager.setToken(token);
+      print('----------------------->');
+      print(json.encode(token));
+      String _accessToken = token.accessToken.toString();
       final kakaoUrl = Uri.parse('http://203.249.22.50:8080/login');
       http
-          .post(kakaoUrl,
-              headers: <String, String>{
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              body: json.encode(token))
+          .post(kakaoUrl, headers: <String, String>{
+            'Content-Type': 'application/x-www-form-urlencoded',
+          }, body: {
+            "access_token": _accessToken
+          })
+          // body: json.encode({token.accessToken}))
           .then((res) => print(json.decode(res.body)))
           .catchError((e) => print(e.toString()));
       print('token : ' + token.toString());
+
+      // _accessTokenExist();
       _get_user_info();
     } catch (error) {
       print('에러' + error.toString());
+    }
+  }
+
+  Future<void> _accessTokenExist() async {
+    if (await AuthApi.instance.hasToken()) {
+      try {
+        User user = await UserApi.instance.me();
+        print('존재함');
+        _get_user_info();
+      } catch (error) {
+        print('엑세스 토큰 존재 안함 : ' + error.toString());
+      }
     }
   }
 
