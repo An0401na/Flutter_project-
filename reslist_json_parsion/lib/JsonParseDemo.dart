@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reslist_json_parsion/Restaurant_info.dart';
 import 'Services.dart';
 import 'Res.dart';
 
@@ -28,7 +29,7 @@ class _JsonParseDemoState extends State<JsonParseDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(_loading ? 'Loading ... ' 'Json Parsing' : 'Users'),
+          title: Text(_loading ? 'Loading ... ' 'Json Parsing' : '가게 목록'),
         ),
         body: Container(
           color: Colors.white,
@@ -36,21 +37,33 @@ class _JsonParseDemoState extends State<JsonParseDemo> {
               itemCount: null == _res ? 0 : _res.length,
               itemBuilder: (context, index) {
                 Res res = _res[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(res.resName),
-                    Text(res.resLocation),
-                    Text(res.resCategory),
-                    Text(res.resInformation),
-                    Text(res.resMinOrderPrice.toString()),
-                    Container(
-                      height: 1.0,
-                      width: 500,
-                      color: Colors.black,
-                    )
-                  ],
+                return ListTile(
+                  title: Text(res.resName),
+                  subtitle:
+                      Text('최소주문 금액 : ' + res.resMinOrderPrice.toString()),
+                  onTap: () {
+                    var key;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Restaurant_info(res: res)));
+                  },
                 );
+                // return Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(res.resName),
+                //     Text(res.resLocation),
+                //     Text(res.resCategory),
+                //     Text(res.resInformation),
+                //     Text(res.resMinOrderPrice.toString()),
+                //     Container(
+                //       height: 1.0,
+                //       width: 500,
+                //       color: Colors.black,
+                //     )
+                //   ],
+                //  );
               }),
         ));
   }
