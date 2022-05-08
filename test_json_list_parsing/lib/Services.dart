@@ -9,10 +9,10 @@ class Services {
       final response = await http.get(Uri.parse(url));
       if (200 == response.statusCode) {
         final List<User> users = usersFromJson(response.body);
-        print(response.body);
+        print("바디 : " + response.body);
         return users;
       } else {
-        print('empty');
+        print("비어있음" + 'empty');
         return <User>[]; // 빈 사용자 목록을 반환
       }
     } catch (e) {

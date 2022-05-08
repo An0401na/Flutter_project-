@@ -11,13 +11,13 @@ class JsonParseDemo extends StatefulWidget {
 }
 
 class _JsonParseDemoState extends State<JsonParseDemo> {
-  late List<Res> _res;
+  late List<Res> _res = [];
   late bool _loading;
 
   void initState() {
     super.initState();
     _loading = true;
-    Services.getUsers().then((Res1) {
+    Services.getRests().then((Res1) {
       setState(() {
         _res = Res1;
         _loading = false;
@@ -42,28 +42,14 @@ class _JsonParseDemoState extends State<JsonParseDemo> {
                   subtitle:
                       Text('최소주문 금액 : ' + res.resMinOrderPrice.toString()),
                   onTap: () {
-                    var key;
+                    Services.postRest(res.resName.toString());
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Restaurant_info(res: res)));
+                          builder: (context) => Restaurant_info(res: res),
+                        ));
                   },
                 );
-                // return Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Text(res.resName),
-                //     Text(res.resLocation),
-                //     Text(res.resCategory),
-                //     Text(res.resInformation),
-                //     Text(res.resMinOrderPrice.toString()),
-                //     Container(
-                //       height: 1.0,
-                //       width: 500,
-                //       color: Colors.black,
-                //     )
-                //   ],
-                //  );
               }),
         ));
   }

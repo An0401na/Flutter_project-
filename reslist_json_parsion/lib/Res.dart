@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 List<Res> resFromJson(String str) =>
     List<Res>.from(json.decode(str).map((x) => Res.fromJson(x)));
 

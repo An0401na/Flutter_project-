@@ -10,7 +10,7 @@ class JsonParseDemo extends StatefulWidget {
 }
 
 class _JsonParseDemoState extends State<JsonParseDemo> {
-  late List<User> _users;
+  late List<User> _users = [];
   late bool _loading;
 
   void initState() {
