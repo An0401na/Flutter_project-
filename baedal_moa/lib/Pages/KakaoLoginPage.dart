@@ -128,25 +128,36 @@ class _KakaoLoginPageState extends State<KakaoLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text('배달 모아'),
+          backgroundColor: Colors.deepOrange,
+          foregroundColor: Colors.deepOrange,
+          titleTextStyle: TextStyle(
+              color: Colors.white,
+              letterSpacing: 3.0,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold),
+          elevation: 1,
+        ),
         body: SafeArea(
-      minimum: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: CupertinoButton(
-              child: Text(
-                '카카오 로그인',
-                style: TextStyle(fontSize: 15, color: Colors.black),
-              ),
-              color: Colors.yellow,
-              onPressed: _loginButtonPressed,
-            ),
-          )
-        ],
-      ),
-    ));
+          minimum: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: CupertinoButton(
+                  child: Text(
+                    '카카오 로그인',
+                    style: TextStyle(fontSize: 15, color: Colors.black),
+                  ),
+                  color: Colors.yellow,
+                  onPressed: _loginButtonPressed,
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
 

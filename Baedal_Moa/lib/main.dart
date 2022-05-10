@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/all.dart';
+import 'Pages/Home.dart';
 import 'Pages/KakaoLoginPage.dart';
 
 void main() {
@@ -14,8 +17,7 @@ void main() {
 class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("스플래쉬");
-    return Container();
+    return Scaffold();
   }
 }
 

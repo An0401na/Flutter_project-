@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../Model/Res.dart';
 
-
 class Services_Res {
   static const String url = 'http://203.249.22.50:8080/reslist';
 
@@ -23,18 +22,17 @@ class Services_Res {
     }
   }
 
-  static Future<void> postRest(String resName) async {
+  static Future<void> postRest(String resId) async {
     try {
-      String __url = 'http://203.249.22.50:8080/noa';
+      String __url = 'http://203.249.22.50:8080/reslist';
       final _url = Uri.parse(__url);
-      print("선택한 가게 이름 : " + resName);
-
+      print("선택한 가게 이름 : " + resId);
       http
           .post(_url, headers: <String, String>{
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }, body: {
-        "rest_name": resName
-      })
+            'Content-Type': 'application/x-www-form-urlencoded',
+          }, body: {
+            "res_id": resId
+          })
           .then((res) => print(json.decode(res.body)))
           .catchError((error) => print(error.toString()));
     } catch (error) {

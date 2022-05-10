@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:baedal_moa/Pages/test.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/Res.dart';
@@ -39,11 +42,11 @@ class _Restaurant_ListState extends State<Restaurant_List> {
               itemBuilder: (context, index) {
                 Res res = _res[index];
                 return ListTile(
-                  title: Text(res.resName),
+                  title: Text(res.resName.toString()),
                   subtitle:
                       Text('최소주문 금액 : ' + res.resMinOrderPrice.toString()),
                   onTap: () {
-                    Services_Res.postRest(res.resName.toString());
+                    Services_Res.postRest(res.resId.toString());
                     Navigator.push(
                         context,
                         MaterialPageRoute(
