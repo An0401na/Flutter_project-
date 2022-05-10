@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/all.dart';
-import 'Pages/Home.dart';
 import 'Pages/KakaoLoginPage.dart';
 
 void main() {
@@ -25,7 +24,7 @@ class Baedal_Moa extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.delayed(Duration(seconds: 5)),
+        future: Future.delayed(Duration(seconds: 0)),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return MaterialApp(home: Splash());
