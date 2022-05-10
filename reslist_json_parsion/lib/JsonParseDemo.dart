@@ -17,6 +17,11 @@ class _JsonParseDemoState extends State<JsonParseDemo> {
   void initState() {
     super.initState();
     _loading = true;
+    // Services.getRests().then((Res1) {
+    //   print("aaa");
+    //   _res = Res1;
+    //   _loading = false;
+    // });
     Services.getRests().then((Res1) {
       setState(() {
         _res = Res1;
