@@ -7,7 +7,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIOverlays(
       [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  KakaoContext.clientId = "f1985bfa359387851bee7bd8bf025b8b";
+  KakaoContext.clientId = "259973fec2ab30fe979de7a40850c394";
   runApp(DamosaLoginApp());
 }
 
