@@ -32,7 +32,7 @@ class _AppState extends State<App> {
     });
     Services_Res.getRests().then((Res1) {
       setState(() {
-        _res = Res1;
+        _res = Res1;;
       });
     });
   }
